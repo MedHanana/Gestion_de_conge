@@ -1,0 +1,133 @@
+<div class="row mt-3">
+    <div class="col-md-12 ">
+        <h2 class="text-center">List of users</h2>
+    </div>
+</div>
+<br><br>
+<div class="table-user">
+    <div class="input-group">
+        <button (click)="popUp(addUser)" type="button"
+                class="btn btn-dark"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <div style="margin-left: 40%;background-color: wheat;width: 550px;">
+            <input type="search" class="form-control search" placeholder="Search"
+               aria-label="Search" style="width: 550px;"
+               aria-describedby="search-addon" name="name" [(ngModel)]="name" (ngModelChange)="search()"/>
+        </div>
+    </div><br><br>
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 ">
+            <div class="bs-component table-container">
+                <table class="table text-center">
+                    <thead>
+                    <tr>
+                        <th data-order="desc" data-name="id" scope="col">Id &nbsp;
+                        </th>
+                        <th scope="col" data-order="desc"
+                            data-name="name">Username</th>
+                        <th scope="col"  data-order="desc"
+                            data-name="email">Email</th>
+                        <th scope="col"  data-order="desc"
+                            data-name="adress">Adress</th>
+
+                        <th scope="col"  data-order="desc"
+                        data-name="adress">Solde</th>
+                        <th scope="col" sortable="population">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let user of users |
+                            paginate: {
+                                itemsPerPage:10,
+                                currentPage: page,
+                                totalItems: totalLenght }
+                    ">
+                            <th scope="row">{{ user.id }}</th>
+                            <td>
+                                {{ user.name }}
+                            </td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.adress }}</td>
+                            <td>{{ user.solde }}</td>
+
+                            <td>
+                                <a (click)="popUp(update)" class="btn btn-info text-dark ml-1 btn-sm rounded btn-action">
+
+                                    <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a (click)="deleteUser(user.id)" class="btn btn-danger ml-1 btn-sm rounded btn-action">
+
+                                    <i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </td>
+                            <ng-template #update let-modal >
+                                <div style="margin: 50px;">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title"></h4>
+                                    </div>
+                                    <form #f="ngForm" (ngSubmit)="updateUser(f,user.id)">
+                                        <span>username:</span>
+                                        <input class="form-control" type="text" required [ngModel]="user.name" name="name"
+                                               #name="ngModel"/>
+
+                                        <span>adress  :</span>
+                                        <input class="form-control" type="text" required [ngModel]="user.adress"
+                                               name="adress" #adress="ngModel"/>
+
+
+
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-light"
+                                                    (click)="modal.close('Close click')">
+                                                save</button>
+                                            <button type="button" class="btn btn-light"
+                                                    (click)="modal.close('Close click')">
+                                                close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <pagination-controls class="ngx-pagination " (pageChange)="page  = $event"></pagination-controls>
+</div>
+
+<ng-template #addUser let-modal>
+    <div style="margin: 50px;">
+        <div class="modal-header">
+            <h4 class="modal-title">Add User</h4>
+        </div>
+        <form #f="ngForm" (ngSubmit)="saveUser(f)">
+            <span>UserName * :</span>
+            <input class="form-control" type="text" required id="name" [(ngModel)]="user.name" name="name"
+                   #name="ngModel" placeholder="UserName"/>
+
+            <span>Email * :</span>
+            <input class="form-control" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
+                   id="email" [(ngModel)]="user.email" name="email" #email="ngModel"
+                   placeholder="Email"/>
+            <div>
+                <label class="text-danger"
+                       *ngIf="email.errors?.['pattern'] && email.touched && email.invalid">
+                    Email invalide</label>
+            </div>
+
+            <span>Address * :</span>
+            <input class="form-control" type="text" required id="adress" [(ngModel)]="user.adress" name="adress"
+                   #adress="ngModel" placeholder="Address"/>
+
+            <span>Password * :</span>
+            <input class="form-control" type="password" required id="password" [(ngModel)]="user.password"
+                   name="password" #password="ngModel"
+                   placeholder="Password"/>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-light"
+                        (click)="modal.close('Close click')">Save</button>
+                <button type="button" class="btn btn-light"
+                        (click)="close(modal)">Close</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

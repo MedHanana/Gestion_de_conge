@@ -1,0 +1,22 @@
+.iq-menu li {
+    background-color: rgb(212, 223, 235);
+    padding: 10px;
+  }
+  .iq-menu li a {
+    font-size: 16px;
+    color: #333;
+  }
+  .iq-menu li:hover {
+    background-color: #f5f5f5;
+  }
+  .active-menu {
+    background-color: #f5f5f5;
+  }
+  .active-menu a {
+    font-size: 16px;
+    color: #333;
+  }
+  .active-menu {
+    border-left: 4px solid #007bff;
+  }
+            

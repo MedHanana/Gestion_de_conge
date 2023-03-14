@@ -1,0 +1,165 @@
+<div class="card p-3">
+    <div class="row mt-3" style="background-color: rgb(255, 255, 255);width: 550px;margin-left: 2%">
+        <div class="col-md-5">
+            <input type="search" class="form-control" placeholder="Search by type of leave"
+                   aria-label="Search" style="width: 549px;margin-left: -7%"
+                   aria-describedby="search-addon" name="type" [(ngModel)]="type" (ngModelChange)="search()"/>
+        </div>
+    </div>
+    <div class="row mt-3" style="margin-left: 2%">
+        <div class="col-md-3">
+            <input type="date" class="form-control" placeholder="Search" aria-label="Search"
+                   aria-describedby="search-addon" name="departureDate" [(ngModel)]="departureDate"/>
+        </div>
+        <div class="col-md-1 mt-2">
+            <input type="checkbox" id="isDepartureDateSelected" (change)="toggleDepartureDate($event)">
+        </div>
+        <div class="col-md-3">
+            <input type="date" class="form-control" placeholder="Search" aria-label="Search"
+                   aria-describedby="search-addon" name="returnDate" [(ngModel)]="returnDate">
+        </div>
+        <div class="col-md-1 mt-2">
+            <input type="checkbox" id="isReturnDateSelected" (change)="toggleReturnDate($event)">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" style="margin-right: 10px"
+                    (click)="filterByDate()">Filter</button>
+            <button class="btn btn-primary ms-2"
+                    (click)="getListConges()">Cancel</button>
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-lg-7">
+        <p class="bs-component">
+            <button (click)="popUp(addConge)" type="button"
+                    class="btn btn-dark"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </p>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-lg-10 ">
+        <div class="bs-component table-container">
+            <table class="table  text-center">
+                <thead class="thead-light">
+                <tr >
+                    <th data-order="desc" data-name="id" scope="col">ID</th>
+                    <th data-order="desc" data-name="user" scope="col">Person</th>
+                    <th data-order="date" data-name="departureDate"
+                        scope="col">DepartureDate </th>
+                    <th data-order="date" data-name="returnDate"
+                        scope="col">ReturnDate</th>
+                    <th data-order="desc" data-name="type"
+                        scope="col">Type</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let conge of conges |
+                                paginate: {
+                                    itemsPerPage:7,
+                                    currentPage: page,
+                                    totalItems: totalLenght }
+                    ">
+                        <td class="align-middle p-2 text-center">{{ conge.id }}</td>
+                        <td class="align-middle p-2 text-center">{{ conge.user }}</td>
+                        <td class="align-middle p-2 text-center">{{ conge.departureDate | date }}</td>
+                        <td class="align-middle p-2 text-center">{{ conge.returnDate | date}}</td>
+                        <td class="align-middle p-2 text-center">{{ conge.type }}</td>
+                        <td class="align-middle p-2 text-center">
+                            <a class="btn btn-info text-dark ml-1 btn-sm rounded btn-action" (click)="popUp(update)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a class="btn btn-danger ml-1 btn-sm rounded btn-action" (click)="deleteConge(conge.id)" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
+                        <ng-template #update let-modal >
+                            <div style="margin: 50px;">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Update Congés</h4>
+                                </div>
+                                <form #f="ngForm" (ngSubmit)="updateCOnge(f,conge.id)">
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-md-12">
+                                            <div class="row form-group m-4">
+                                                <div class="col-md-4">
+                                                    <label>Departure date</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="date" class="form-control" required
+                                                           [ngModel]="conge.departureDate | date:'yyyy-MM-dd'" (ngModelChange)="conge.departureDate"
+                                                           name="departureDate" #departureDate="ngModel" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="row form-group m-4">
+                                                <div class="col-md-4">
+                                                    <label>Return date</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="date" class="form-control" required
+                                                           [ngModel]="conge.returnDate | date:'yyyy-MM-dd'" (ngModelChange)="conge.returnDate"
+                                                           name="returnDate" #returnDate="ngModel" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="row form-group m-4">
+                                                <div class="col-md-4">
+                                                    <label>Type</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" required [(ngModel)]="conge.type" name="type"
+                                                           #type="ngModel" placeholder="">
+                                                    <div *ngIf="type.invalid && type.touched">
+                                                        <small class="alert alert-danger">Empty field</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-light"
+                                                        (click)="modal.close('Close click')">Save</button>
+                                                <button type="button" class="btn btn-light"
+                                                        (click)="modal.close('Close click')">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<pagination-controls class="ngx-pagination " (pageChange)="page  = $event"></pagination-controls>
+<ng-template #addConge let-modal>
+    <div style="margin: 50px;">
+        <div class="modal-header">
+            <h4 class="modal-title">Add leave</h4>
+        </div>
+        <form #f="ngForm" (ngSubmit)="saveConge(f)">
+           
+           
+            
+            
+            <span>Departure date:</span>
+            <input class="form-control"   type="date" required [(ngModel)]="conge.departureDate" id="txtDate" name="departureDate"
+                   #name="ngModel" placeholder="" [min]="today"/>
+
+            <span>Return date :</span>
+            <input type="date" class="form-control" required id="txtDate" [(ngModel)]="conge.returnDate"
+                   name="returnDate" #returnDate="ngModel" placeholder="" [min]="today">
+
+                   <span>Type :</span>
+                   <select  type="text" class="form-control" [(ngModel)]="conge.type" name="type" #type="ngModel">
+                       <option *ngFor="let type of types" value="/api/types/{{type.id}}" >{{type.name}}</option>
+                    </select>
+                    
+                    <div *ngIf="isCongeAlreadyExists">
+                        <p style="color: red;">Conge already exists for this user between these dates</p>
+                     </div>
+            <div class="modal-footer">
+                <button [disabled]="disableSave" type="submit" class="btn btn-light"
+                        (click)="modal.close('Close click')">Save</button>
+                <button type="button" class="btn btn-light"
+                        (click)="close(modal)">Close</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

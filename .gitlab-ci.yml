@@ -1,0 +1,20 @@
+stages:          # List of stages for jobs, and their order of execution
+  - lint
+  - codingStandards
+
+lint-test-job:
+  image: node:16.17.0
+  stage: lint
+  script:
+    - echo 'linting client-front added code'
+    - cd client-front
+    - npm link @angular/cli
+    - ng lint --fix
+phpcs-test-job:
+  image: php:8.0-fpm
+  stage: codingStandards
+  script:
+    - echo 'Verifying coding standards in api/src added code'
+    - cd api
+    - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+    - php phpcs.phar -v --standard=PSR12 --ignore=./src/Kernel.php ./src

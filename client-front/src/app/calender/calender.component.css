@@ -1,0 +1,22 @@
+.congePaye{
+    background-color: red;
+}
+.card.bg-c-blue {
+    background-color: #007bff;
+}
+
+.card.bg-c-green {
+    background-color: #28a745;
+}
+
+.card.bg-c-yellow {
+    background-color: #ffc107;
+}
+
+.card.bg-c-pink {
+    background-color: #dc3545;
+}
+.order-card p,
+.order-card h2 {
+    color: #fff;
+}

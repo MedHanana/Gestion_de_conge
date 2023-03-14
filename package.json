@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ngx-time-scheduler": "^1.7.1"
+  }
+}

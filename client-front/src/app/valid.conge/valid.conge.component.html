@@ -1,0 +1,54 @@
+
+
+<div class="row justify-content-md-center">
+    <div class="col-lg-10 ">
+        <div class="bs-component table-container">
+            <table class="table  text-center">
+                <thead class="thead-light">
+                <tr >
+                    <th data-order="desc" data-name="id" scope="col">ID</th>
+                    <th data-order="desc" data-name="user" scope="col">Person</th>
+                    <th data-order="date" data-name="departureDate"
+                        scope="col">DepartureDate </th>
+                    <th data-order="date" data-name="returnDate"
+                        scope="col">ReturnDate</th>
+                    <th data-order="desc" data-name="type"
+                        scope="col">Type</th>
+                    <th scope="col">Action</th>
+                  
+
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let conge of conges |
+                                paginate: {
+                                    itemsPerPage:7,
+                                    currentPage: page,
+                                    totalItems: totalLenght }
+                    ">
+                        <td class="align-middle p-2 text-center">{{ conge.id }}</td>
+                        <td class="align-middle p-2 text-center">{{ conge.user }}</td>
+                        <td class="align-middle p-2 text-center">{{ conge.departureDate | date }}</td>
+                        <td class="align-middle p-2 text-center">{{ conge.returnDate | date}}</td>
+                        <td class="align-middle p-2 text-center">{{ conge.type }}</td>
+                        
+
+                        <td class="align-middle p-2 text-center">
+                            <a class="btn btn-info text-dark ml-1 btn-sm rounded btn-action" (click)="validateConge(conge.id,conge)"><i class="fa fa-check-square" aria-hidden="true"></i></a>
+                            <a class="btn btn-danger ml-1 btn-sm rounded btn-action" (click)="deleteConge(conge.id)" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
+                  
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<pagination-controls class="ngx-pagination " (pageChange)="page  = $event"></pagination-controls>
+<ng-template #addConge let-modal>
+    <div style="margin: 50px;">
+        <div class="modal-header">
+            <h4 class="modal-title">Add leave</h4>
+        </div>
+    </div>
+</ng-template>

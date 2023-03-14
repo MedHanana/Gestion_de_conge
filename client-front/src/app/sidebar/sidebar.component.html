@@ -1,0 +1,44 @@
+<div class="iq-sidebar">
+    <div class="iq-sidebar-logo d-flex justify-content-between">
+       <a href="index.html" class="header-logo">
+          <img src="../assets/images/logo.png" class="img-fluid rounded-normal" alt="">
+          <div class="logo-title">
+             <span class="text-primary text-uppercase">Norsys</span>
+          </div>
+       </a>
+       <div class="iq-menu-bt-sidebar">
+          <div class="iq-menu-bt align-self-center">
+             <div class="wrapper-menu">
+                <div class="main-circle"><i class="las la-bars"></i></div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div id="sidebar-scrollbar">
+       <nav class="iq-sidebar-menu">
+          <ul id="iq-sidebar-toggle" class="iq-menu">
+             <li class="active active-menu">
+                 <a routerLink="/calendar" class="iq-waves-effect"><i class="fa fa-calendar-check-o"></i>
+                     <span>Calendar</span>
+                 </a>
+             </li>
+             <li>
+                 <a routerLink="/users" class="text-primary"><i class="las la-user-friends"></i>
+                     <span>User</span>
+                 </a>
+             </li>
+             <li>
+                 <a routerLink="/conges" class="text-primary"><i class="las la-sign-out-alt"></i>
+                     <span>Conge</span>
+                 </a>
+             </li>
+             <li *ngIf="isAdmin">
+               <a routerLink="/validation" class="text-primary">
+                 <i class="fa fa-check-square-o"></i>
+                 <span>Validation</span>
+               </a>
+             </li>
+          </ul>
+       </nav>
+    </div>
+ </div>

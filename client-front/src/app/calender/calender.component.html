@@ -1,0 +1,63 @@
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+
+                <div class="page-body">
+                    <div class="row">
+
+                    <div class="col-md-6 col-xl-3">
+    <div class="card bg-c-blue order-card">
+        <div class="card-block">
+            <h2 class="m-b-20">Total valid Conge</h2>
+            <h2 class="text-right"><i class="fa fa-check-square-o f-left"></i><span>{{ totalLenght2  }}</span></h2>
+          
+        </div>
+    </div>
+</div>
+<div class="col-md-6 col-xl-3">
+    <div class="card bg-c-green order-card">
+        <div class="card-block">
+            <h2 class="m-b-20">Total Conges</h2>
+            <h2 class="text-right"><i class="ti-tag f-left"></i><span>{{ totalconge }}</span></h2>
+            
+        </div>
+    </div>
+</div>
+<div class="col-md-6 col-xl-3">
+    <div class="card bg-c-yellow order-card">
+        <div class="card-block">
+            <h2 class="m-b-20">Total not valid</h2>
+            <h2 class="text-right"><i class="fa fa-clock-o f-left"></i><span>{{totalnotvalid}}</span></h2>
+
+        </div>
+    </div>
+</div>
+<div class="col-md-6 col-xl-3">
+    <div class="card bg-c-pink order-card">
+        <div class="card-block">
+            <h2 class="m-b-20">Total Users</h2>
+            <h2 class="text-right"><i class="fa fa-users f-left"></i><span>{{totaluser}}</span></h2>
+           
+        </div>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-ts
+[items]="items"
+[periods]="periods"
+[sections]="sections"
+[events]="events"
+[showBusinessDayOnly]="false"
+[allowDragging]="true"
+></ngx-ts>
+
+
+
